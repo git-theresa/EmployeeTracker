@@ -1,0 +1,23 @@
+{
+  "name": "EmployeeTracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/git-theresa/EmployeeTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/git-theresa/EmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/git-theresa/EmployeeTracker#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}

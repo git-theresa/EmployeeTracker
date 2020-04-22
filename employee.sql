@@ -26,11 +26,12 @@ CREATE TABLE  employee(
 );
 
 
-INSERT INTO songs (title, artist, genre)
-VALUES ("Best of Me", "The Starting Line", "Pop Punk");
 
-INSERT INTO songs (title, artist, genre)
-VALUES ("Can We Talk", "Tevin Campbell", "R&B");
+INSERT INTO department (name)
+VALUES ("accounting");
 
-INSERT INTO songs (title, artist, genre)
-VALUES ("Southern Hospitality", "Ludacris", "Hip-Hop");
+-- INSERT INTO songs (title, artist, genre)
+-- VALUES ("Can We Talk", "Tevin Campbell", "R&B");
+
+-- INSERT INTO songs (title, artist, genre)
+-- VALUES ("Southern Hospitality", "Ludacris", "Hip-Hop");
