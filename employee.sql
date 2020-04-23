@@ -7,13 +7,13 @@ USE employee_DB;
 CREATE TABLE department (
   id INTEGER NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
-    PRIMARY KEY (id)
+  PRIMARY KEY (id)
 );
 CREATE TABLE role (
   id INTEGER NOT NULL AUTO_INCREMENT,
   title VARCHAR(45) NOT NULL,
   salary  NOT NULL,
-  department id INTEGER VARCHAR(45) NOT NULL,
+  department id INTEGER NOT NULL,
   PRIMARY KEY (id)
 );
 CREATE TABLE  employee(
@@ -30,8 +30,12 @@ CREATE TABLE  employee(
 INSERT INTO department (name)
 VALUES ("accounting");
 
--- INSERT INTO songs (title, artist, genre)
--- VALUES ("Can We Talk", "Tevin Campbell", "R&B");
+INSERT INTO roles (title, salary, department_id)
+VALUES ("Manager", 75,000.00, 1);
 
--- INSERT INTO songs (title, artist, genre)
--- VALUES ("Southern Hospitality", "Ludacris", "Hip-Hop");
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
+VALUES ("Philip", "Malone", 1, null);
+
+INSERT INTO employees (first_name, last_name, role_id, manager_id)
+VALUES ("Janice", "Ian", 1, 1);
+
