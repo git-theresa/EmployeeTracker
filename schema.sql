@@ -1,13 +1,26 @@
+DROP DATABASE IF EXISTS employee_DB;
+
+CREATE DATABASE employee_DB;
+
 USE employee_DB;
 
-INSERT INTO department (name)
-VALUES ("accounting");
-
-INSERT INTO roles (title, salary, department_id)
-VALUES ("Manager", 75,000.00, 1);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Philip", "Malone", 1, null);
-
-INSERT INTO employees (first_name, last_name, role_id, manager_id)
-VALUES ("Janice", "Ian", 2, 1);
+CREATE TABLE department (
+  id INTEGER(30) AUTO_INCREMENT NOT NULL,
+  name VARCHAR(30) NOT NULL
+  PRIMARY KEY (id)
+  );
+CREATE TABLE role (
+  id INT PRIMARY KEY NOT NULL,
+  title VARCHAR(45) NOT NULL,
+  salary  DECIMAL(10, 2) NOT NULL ,
+  department_id INT NOT NULL
+  
+);
+CREATE TABLE  employee(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT NOT NULL,
+  manager_id INT
+  
+);

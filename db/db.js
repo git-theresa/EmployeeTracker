@@ -1,4 +1,4 @@
-const employeeConnection = require("./employeeConnection");
+const employeeConnection = require("../connection.js");
 
 // make connections with Class:
 

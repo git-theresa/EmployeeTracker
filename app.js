@@ -1,14 +1,13 @@
 const Db = require("./db/db.js");
+// const connection = require("./employeeConnection.js")
 const ask = require("inquirer");
 const validator = require("validator");
-// const consoleTable = require("console.table");
 
 const db = new Db ()
 // const db = new db (.connection)
-// console.log(db.getDepartments)
+
 db.connection.connect(function(err) {
     if (err) throw err;
-    
     console.log("connected as id " + db.connection.threadId +"\n");
    inquireQ();
   });
@@ -19,8 +18,7 @@ db.connection.connect(function(err) {
     name: "department",
   }];
 
-    const addRole = [
-    {    
+    const addRole = [{
     type: "input",
     message: "Enter the Role you wish to add:",
     name: "title",
@@ -29,19 +27,18 @@ db.connection.connect(function(err) {
     type: "input",
     massage: "Enter the Salary for this Role:",
     name: "salary",
-    validate: value => {
+      validate: value => {
         if (validator.isInt(value)) {
             return true;
         }
         return "Please enter a valid salary ex:(30000)";
-    }
+      }
     },
     {
     type: "input",
     massage: "Enter the Department ID for this Role:",
     name: "department_id",
-     }
-];
+     }];
 // INQUIRER FUNCTIONS
 const inquireQ = () => {
     ask
@@ -135,158 +132,158 @@ const inquireQ = () => {
               // ======>>===============================>=================>=====================>
 
               // BEGIN ROLES CASE ===============================================================================================
-//           case "Add Role":
-//             ask.prompt(addRole).then((answer) => {
-//               db.connection.query(
-//                 "INSERT INTO role SET ?",
-//                 {
-//                   title: answer.title,
-//                   salary: answer.salary,
-//                   department_id: answer.department_id,
-//                 },
-//                 function (err) {
-//                   if (err) throw err;
-//                   console.log("Successfully added role!");
-//                   db.connection.query("SELECT * FROM role", function (err, res) {
-//                     if (err) throw err;
-//                     res.length > 0 && console.table(res);
-//                     inquireQ();
-//                   });
-//                 }
-//               );
-//             });
-//             break;
+          case "Add Role":
+            ask.prompt(addRole).then((answer) => {
+              db.connection.query(
+                "INSERT INTO role SET ?",
+                {
+                  title: answer.title,
+                  salary: answer.salary,
+                  department_id: answer.department_id,
+                },
+                function (err) {
+                  if (err) throw err;
+                  console.log("Successfully added role!");
+                  db.connection.query("SELECT * FROM role", function (err, res) {
+                    if (err) throw err;
+                    res.length > 0 && console.table(res);
+                    inquireQ();
+                  });
+                }
+              );
+            });
+            break;
 //             // VIEW ROLES CASE ===============================================================================
-//           case "View Role":
-//             db.connection.query("SELECT * FROM role", function (err, res) {
-//               if (err) throw err;
-//               res.length > 0 && console.table(res);
-//               inquireQ();ask.prompt(addRole).then((answer) => {
-//               db.connection.query(
-//                 "INSERT INTO role SET ?",
-//                 {
-//                   title: answer.title,
-//                   salary: answer.salary,
-//                   department_id: answer.department_id,
-//                 },
-//                 function (err) {
-//                   if (err) throw err;
-//                   console.log("Successfully added role!");
+          case "View Role":
+            db.connection.query("SELECT * FROM role", function (err, res) {
+              if (err) throw err;
+              res.length > 0 && console.table(res);
+              inquireQ();ask.prompt(addRole).then((answer) => {
+              db.connection.query(
+                "INSERT INTO role SET ?",
+                {
+                  title: answer.title,
+                  salary: answer.salary,
+                  department_id: answer.department_id,
+                },
+                function (err) {
+                  if (err) throw err;
+                  console.log("Successfully added role!");
                   
-//                   db.connection.query("SELECT * FROM role", function (err, res) {
-//                     if (err) throw err;
-//                     res.length > 0 && console.table(res);
-//                     inquireQ();
-//                   });
-//                 }
-//               );
-//             });
+                  db.connection.query("SELECT * FROM role", function (err, res) {
+                    if (err) throw err;
+                    res.length > 0 && console.table(res);
+                    inquireQ();
+                  });
+                }
+              );
+            });
             
-//             break;
-//             });
-//             break;
+        
+            });
+            break;
 
 //             //  DELETE ROLES ======================================================================================
-//             case "Delete Role":
-//               db.connection.query("SELECT * FROM  role", function(err, res) {
-//                 if (err) throw err;
-//                 res.length > 0 && console.table(res);
-//                 ask.prompt([
-//                   {
-//                   type:"input",
-//                   message: "Enter the ROLE you want to delete:",
-//                   name: "deleteRole",
-//                   }
-//                 ])
-//                 .then((answer) =>{
-//                   db.connection.query(
-//                     "DELETE FROM role WHERE id=?",
-//                     [answer.deleteRole],
-//                     function(err,res) {
-//                       if (err) throw err;
-//                       db.connection.query("SELECT * FROM role", function (
-//                         err,
-//                         res
-//                       ){
-//                         if(err) throw err;
-//                         res.length > 0 && console.table(res);
-//                         inquireQ();
-//                       });
-//                     }
-//                   );
-//                 });
-//                });
-//         break;
+            case "Delete Role":
+              db.connection.query("SELECT * FROM  role", function(err, res) {
+                if (err) throw err;
+                res.length > 0 && console.table(res);
+                ask.prompt([
+                  {
+                  type:"input",
+                  message: "Enter the ROLE you want to delete:",
+                  name: "deleteRole",
+                  }
+                ])
+                .then((answer) =>{
+                  db.connection.query(
+                    "DELETE FROM role WHERE id=?",
+                    [answer.deleteRole],
+                    function(err,res) {
+                      if (err) throw err;
+                      db.connection.query("SELECT * FROM role", function (
+                        err,
+                        res
+                      ){
+                        if(err) throw err;
+                        res.length > 0 && console.table(res);
+                        inquireQ();
+                      });
+                    }
+                  );
+                });
+               });
+        break;
 //         // UPDATE ROLE ================================================================
 
 //          case "Update Roles":
 //             break;
 // // ====================================================================================
 // // EMPLOYEE CASE 
-//            case "View Employees":
-//             db.connection.query("SELECT * FROM employees", function (err, res) {
-//               if (err) throw err;
-//               console.log(res);
-//               res.length > 0 && console.table(res);
-//               inquireQ();
-//             });
-//             break;      
-//    // EMPLOYEE ADD CASE
-//             case "Add Employee":
-//           ask.prompt(addEmployee).then((answer) => {
-//   db.connection.query(
-//     "INSERT INTO employee SET ?",
-//     {
-//       title: answer.title,
-//       first_name: answer.first_name,
-//       last_name: answer.last_name,
-//       role_id: answer.role_id,
-//       manager_id: answer.manager_id,
-//     },
-//     function (err) {
-//       if (err) throw err;
-//       console.log("Welcome Your New Employee!");
-//       db.connection.query("SELECT * FROM employee", function (err, res) {
-//         if (err) throw err;
-//         res.length > 0 && console.table(res);
-//         inquireQ();
-//       });
-//     }
-//   );
-// });
+           case "View Employees":
+            db.connection.query("SELECT * FROM employees", function (err, res) {
+              if (err) throw err;
+              console.log(res);
+              res.length > 0 && console.table(res);
+              inquireQ();
+            });
+            break;      
+   // EMPLOYEE ADD CASE
+            case "Add Employee":
+          ask.prompt(addEmployee).then((answer) => {
+  db.connection.query(
+    "INSERT INTO employee SET ?",
+    {
+      title: answer.title,
+      first_name: answer.first_name,
+      last_name: answer.last_name,
+      role_id: answer.role_id,
+      manager_id: answer.manager_id,
+    },
+    function (err) {
+      if (err) throw err;
+      console.log("Welcome Your New Employee!");
+      db.connection.query("SELECT * FROM employee", function (err, res) {
+        if (err) throw err;
+        res.length > 0 && console.table(res);
+        inquireQ();
+      });
+    }
+  );
+});
 
-// break;
-// // DELETE EMPLOYEE
-//           case "Delete Employee":
-//               db.connection.query("SELECT * FROM  employee", function(err, res) {
-//                       if (err) throw err;
-//                       res.length > 0 && console.table(res);
-//                       ask.prompt([
-//                         {
-//                         type:"input",
-//                         message: "Enter the Employee you want to Terminate or Delete:",
-//                         name: "deleteEmployee",
-//                         }
-//                       ])
-//                       .then((answer) =>{
-//                         db.connection.query(
-//                           "DELETE FROM employee WHERE id=?",
-//                           [answer.deleteEmployee],
-//                           function(err,res) {
-//                             if (err) throw err;
-//                             db.connection.query("SELECT * FROM employee", function (
-//                               err,
-//                               res
-//                             ){
-//                               if(err) throw err;
-//                               res.length > 0 && console.table(res);
-//                               inquireQ();
-//                             });
-//                           }
-//                         );
-//                       });
-//                      });
-//               break;
+break;
+// DELETE EMPLOYEE
+          case "Delete Employee":
+              db.connection.query("SELECT * FROM  employee", function(err, res) {
+                      if (err) throw err;
+                      res.length > 0 && console.table(res);
+                      ask.prompt([
+                        {
+                        type:"input",
+                        message: "Enter the Employee you want to Terminate or Delete:",
+                        name: "deleteEmployee",
+                        }
+                      ])
+                      .then((answer) =>{
+                        db.connection.query(
+                          "DELETE FROM employee WHERE id=?",
+                          [answer.deleteEmployee],
+                          function(err,res) {
+                            if (err) throw err;
+                            db.connection.query("SELECT * FROM employee", function (
+                              err,
+                              res
+                            ){
+                              if(err) throw err;
+                              res.length > 0 && console.table(res);
+                              inquireQ();
+                            });
+                          }
+                        );
+                      });
+                     });
+              break;
 // ==============================>=========================.>============================.>=========================
               // MANAGER CASE
           

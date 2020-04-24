@@ -19,8 +19,7 @@
   * Contact
   
   ##  **Description**
-  Employee Tracker is an application that allows a user to create an office database with MySQL.
-  
+  Employee Tracker is an application that allows a user to create an office database
  
 
  <img   src="assets/" alt="screenshot" />
