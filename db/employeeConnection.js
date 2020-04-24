@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
  password: process.env.MY_PASSWORD,
   // Your password
   password: "password",
-  database: "employeetracker_db"
+  database: "employee_db"
 });
 
 connection.query= util.promisify(connection.query);

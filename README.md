@@ -19,7 +19,8 @@
   * Contact
   
   ##  **Description**
-  Employee Tracker is an application that allows a user to create a notes file using Node Express
+  Employee Tracker is an application that allows a user to create an office database with MySQL.
+  
  
 
  <img   src="assets/" alt="screenshot" />
