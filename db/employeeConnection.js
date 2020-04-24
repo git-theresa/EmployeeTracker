@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var util = require("util");
-var dotenv = require("dotenv");
+var dotEnv = require("dotenv");
 
 require("dotenv").config();
 
@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
  password: process.env.MY_PASSWORD,
   // Your password
   password: "password",
-  database: "employee_db"
+  database: "employee_DB"
 });
 
 connection.query= util.promisify(connection.query);
