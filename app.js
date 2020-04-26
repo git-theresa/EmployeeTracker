@@ -334,37 +334,32 @@ case "View Departments":
           });
         case "Update Employee Managers":
           break;
- // ==================
-        // case "View Employee by Manager":
-        //   db.connection.query("SELECT employee.first_name employee.last_name employee.manager_id *  FROM employee  JOIN manager ON  employee.manager_id = manager_id", function (err, res)
-        //    {
-        //   if (err) throw err;
-        //   res.length > 0 && console.table(res);      
-        //         ask.prompt([
-        //           {
-        //           type:"input",
-        //           message: "Enter the MANAGER ID you wish to view",
-        //           name: "viewByManager",
-        //           }
-        //         ])
-        //         .then((answer) =>{
-        //           db.connection.query("SELECT employee.first_name employee.last_name employee.manager_id * FROM employee  JOIN manager ON  employee.manager_id= manager_id", function (err, res)
-        //           {
-        //             [answer.viewByManager],
-        //             function(err,res) {
-        //               if (err) throw err;
-        //               db.connection.query("SELECT employee.first_name employee.last_name employee.manager_id * FROM employee   JOIN manager ON  employee.manager_id = manager_id", function (err, res) {
-        //                 if(err) throw err;
-        //                 res.length > 0 && console.table(res);
-        //                 inquireQ();
-        //               });
-        //             }
-        //           }
-        //           );
-        //         });
-        //        });
+//  ==================
+        case "View Employee by Manager":
+db.connection.query("SELECT employee.first_name, employee.last_name,  employee.id  FROM employee ", 
+(err, res) => {
+          if (err) throw err;
+          res.length > 0 && console.table(res);      
+                ask.prompt([
+                  {
+                  type:"input",
+                  message: "Enter the MANAGER ID you wish to view",
+                  name: "viewByManager",
+                  }
+                ])
+                .then((answer) =>{
+db.connection.query("SELECT employee.first_name, employee.last_name  FROM employee  WHERE manager_id=?",
+                   [answer.viewByManager],
+                   (err,res) => {
+                      if (err) throw err;
+                        res.length > 0 && console.table(res);
+                        inquireQ();
+                     }
+                  );
+                });
+               });
      
-        // break;
+        break;
 
         // ========= END * ALL * CASES  (FINISH) ====================
         case "Finish":
