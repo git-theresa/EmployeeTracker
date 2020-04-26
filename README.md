@@ -7,8 +7,8 @@
  
   # **Project** Note Taker
   
-  ##  **_Live Link_** 
-  * https://
+  ##  **_Link_**
+  https://github.com/git-theresa/EmployeeTracker
   
   ##  **Table of Contents**
   * Description
