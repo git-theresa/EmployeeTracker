@@ -14,6 +14,7 @@ class db {
     {
       name: deptName,
     })
+    // string literal to pass in Value
   }
   getRole() {
       return this.connection.query("SELECT * FROM role");

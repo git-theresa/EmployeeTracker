@@ -5,10 +5,16 @@ var dotEnv = require("dotenv");
 require("dotenv").config();
 
 var connection = mysql.createConnection({
-host: "localhost",
-port: 3306,
-USER_NAME: process.env.USER_NAME,
-MY_PASSWORD: process.env.MY_PASSWORD,
+  host: "localhost",
+  port: 3306,
+
+  
+
+ user: process.env.USER_NAME,
+ password: process.env.MY_PASSWORD,
+  // Your password
+  password: "password",
+  database: "employee_DB"
 });
 
 connection.query= util.promisify(connection.query);
