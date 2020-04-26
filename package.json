@@ -1,7 +1,7 @@
 {
-  "name": "EmployeeTracker",
+  "name": "employeetracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "<img align=\"left\" src= \"https://img.shields.io/badge/License-MIT-green\">",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,5 +24,6 @@
     "inquirer": "^7.1.0",
     "mysql": "^2.18.1",
     "validator": "^13.0.0"
-  }
+  },
+  "devDependencies": {}
 }
