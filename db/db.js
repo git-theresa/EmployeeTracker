@@ -8,16 +8,31 @@ class db {
   }
   getDepartment() {
   return this.connection.query("SELECT * FROM department");
-        // make sure Departments is selecting from single department
   }
   addDepartment(deptName){
-    return this.connection.query("INSERT INTO department SET ?",
+  return this.connection.query("INSERT INTO department SET ?",
     {
       name: deptName,
     })
-    // string literal to pass in Value
- 
-}
+  }
+  getRole() {
+      return this.connection.query("SELECT * FROM role");
+  }
+  addRole () {
+      return this.connection.query("INSERT INTO role SET ?",
+      {
+          name: addRole,
+      })
+  }
+  getEmployee(){
+      return this.connection.query("SELECT * FROM employee");
+  }
+  addEmployee(){
+      return this.connection.query("INSERT INTO employee SET ?",
+      {
+          name: addEmployee,
+      })
+  }
 
 }
 

@@ -1,7 +1,7 @@
 USE employee_DB;
 
 INSERT INTO department (name)
-VALUES ("accounting");
+VALUES ("MARKETING");
 
 INSERT INTO roles (title, salary, department_id)
 VALUES ("Manager", 75,000.00, 1);
