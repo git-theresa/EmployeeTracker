@@ -1,4 +1,4 @@
-const employeeConnection = require("../connection.js");
+const employeeConnection = require("./connection.js");
 
 // make connections with Class:
 
@@ -14,7 +14,7 @@ class db {
     {
       name: deptName,
     })
-    // string literal to pass in Value
+  
   }
   getRole() {
       return this.connection.query("SELECT * FROM role");

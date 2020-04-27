@@ -1,6 +1,6 @@
 // REQUIRED FOLDER PATHS
 const Db = require("./db/db.js");
-const connection = require("./connection.js")
+const connection = require("./db/connection.js")
 // REQUIRED INSTALL PACKAGES
 const ask = require("inquirer");
 const CFonts = require("cfonts");
@@ -83,7 +83,7 @@ const inquireQ = () => {
           "Add Employee",
           "View Employee",
           "View Employee by Manager",
-          "Update Employee Roles",
+          "Update Employee Role",
           "Update Employee Managers",
           "Delete Employee",
           "Finish",
@@ -146,7 +146,7 @@ case "View Departments":
               });
           });
           break;
-        // ======END  *DEPARTMENTS* =====================
+        // ==========END  *DEPARTMENTS* =====================
 
         // =================* BEGIN ROLES CASE *=================
          case "View Role":
@@ -212,56 +212,93 @@ case "View Departments":
           });
           break;
         // ====================UPDATE * ROLE * CASE =============================
-        case "Updated Employee Roles":
-          db.connection.query("SELECT * FROM employees", (err, res) => {
+        case "Update Employee Role":
+        db.connection.query("SELECT * FROM employee", (err, employee) => {
+          if (err) throw err;
+          db.connection.query("SELECT * FROM role", (err, role) => {
             if (err) throw err;
-            res.length > 0 && console.table(res);
-            ask
-              .prompt([
+db.connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id", (err, res) => {
+              if (err) throw err;
+              console.table(res);
+              ask.prompt([
                 {
-                  type: "input",
-                  message: "Please enter the EMPLOYEE'S ID you wish to update:",
-                  name: "updateID",
-                  validate: (value) => {
-                    if (validator.isInt(value)) {
-                      return true;
-                    }
-                    return "Please enter valid employee id (#)";
-                  },
+                  type: "list",
+                  message: "Please select the employee you wish to update:",
+                  choices: employee.map(employee => ({ value: employee.id, name: employee.last_name })),
+                  name: "updateID"
                 },
                 {
-                  type: "input",
-                  message: "Please enter EMPLOYEE'S new ROLE ID:",
-                  name: "updateRoleID",
+                  type: "list",
+                  message: "Please enter their new role id:",
+                  choices: role.map(role => ({ value: role.id, name: role.title })),
+                  name: "updateRoleID"
+                }
+              ]).then(answer => {
+                db.connection.query("UPDATE employee SET ? WHERE ?", [{
+                  role_id: answer.updateRoleID
                 },
-              ])
-              .then((answer) => {
-                connection.query(
-                  "UPDATE employees SET ? WHERE ?",
-                  [
-                    {
-                      role_id: answer.updateRoleID,
-                    },
-                    {
-                      id: answer.updateID,
-                    },
-                  ],
-                  (err, res) => {
-                    if (err) throw err;
-                    console.table(res);
-                    console.log("Employee has been updated!");
-                    inquireQ();
-                  }
-                );
+                {
+                  id: answer.updateID
+                }], (err, res) => {
+                  if (err) throw err;
+                  console.log("Successfully updated!");
+                  inquireQ();
+                });
               });
+            });
           });
+        });
           break;
+        // case "Updated Employee Roles":
+        //   db.connection.query("SELECT * FROM employees", (err, res) => {
+        //     if (err) throw err;
+        //     res.length > 0 && console.table(res);
+        //     ask
+        //       .prompt([
+        //         {
+        //           type: "input",
+        //           message: "Please enter the EMPLOYEE'S ID you wish to update:",
+        //           name: "updateID",
+        //           validate: (value) => {
+        //             if (validator.isInt(value)) {
+        //               return true;
+        //             }
+        //             return "Please enter valid EMPLOYEE ID NUMBER ";
+        //           },
+        //         },
+        //         {
+        //           type: "input",
+        //           message: "Please enter EMPLOYEE'S new ROLE ID:",
+        //           name: "updateRoleID",
+        //         },
+        //       ])
+        //       .then((answer) => {
+        //         connection.query(
+        //           "UPDATE employees SET ? WHERE =?",
+        //           [
+        //             {
+        //               role_id: answer.updateRoleID,
+        //             },
+        //             {
+        //               id: answer.updateID,
+        //             },
+        //           ],
+        //           (err, res) => {
+        //             if (err) throw err;
+        //             console.table(res);
+        //             console.log("Congrats on the Promotion");
+        //             inquireQ();
+        //           }
+        //         );
+        //       });
+        //   });
+        
 
         // // =================END * ROLES =====================
 
         // ==================BEGIN * EMPLOYEE * CASE =============
         case "View Employee":
-          db.connection.query("SELECT * FROM employee", (err, res) => {
+          db.connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id", (err, res) => {
             if (err) throw err;
             console.log(res);
             res.length > 0 && console.table(res);
