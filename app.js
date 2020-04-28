@@ -1,6 +1,6 @@
 // REQUIRED FOLDER PATHS
 const Db = require("./db/db.js");
-const connection = require("./db/connection.js")
+const connection = require("./db/connection.js");
 // REQUIRED INSTALL PACKAGES
 const ask = require("inquirer");
 const CFonts = require("cfonts");
@@ -9,7 +9,7 @@ const validator = require("validator");
 // CONSTRUCTOR PATH
 const db = new Db();
 
-// CONNECT DATABASE 
+// CONNECT DATABASE
 db.connection.connect(function (err) {
   if (err) throw err;
   console.log("connected as id " + db.connection.threadId + "\n");
@@ -35,7 +35,7 @@ const addRole = [
     type: "input",
     massage: "Enter the SALARY for this Role:",
     name: "salary",
-     },
+  },
   {
     type: "input",
     massage: "Enter the DEPARTMENT ID for this Role:",
@@ -69,7 +69,7 @@ const addEmployee = [
 // =========== INQUIRER PROMPTS FOR COMMAND LINE =================
 const inquireQ = () => {
   ask
-    .prompt([
+    .prompt([     
       {
         type: "list",
         message: "What would you like to do?",
@@ -90,28 +90,31 @@ const inquireQ = () => {
         ],
         name: "userFunction",
       },
-    ]) 
-     // ==================BEGIN ANSWERS TO PROMPTS ==============================
+    ])
+    // ==================BEGIN ANSWERS TO PROMPTS ==============================
     .then((res) => {
       const userFunction = res.userFunction;
-          switch (userFunction) {
+      switch (userFunction) {
         // ===============* DEPARTMENTS *=========================
-case "View Departments":
-          db.connection.query("SELECT * FROM department", (err, res) => {
+        case "View Departments":
+          db.connection.query("SELECT * FROM department", (err, res) => 
+          {
             if (err) throw err;
             console.log(res);
             res.length > 0 && console.table(res);
-            
-        inquireQ()
+
+            inquireQ();
           });
-         
+
           break;
- // ======================ADD * DEPARTMENT ==========================
+        // ======================ADD * DEPARTMENT ==========================
         case "Add Department":
           ask.prompt(addDept).then((answer) => {
-            db.addDepartment(answer.department).then(function () {
+            db.addDepartment(answer.department).then(function () 
+            {
               console.log("Successfully added new department!");
-              db.connection.query("SELECT * FROM department",  (err, res) => {
+              db.connection.query("SELECT * FROM department", (err, res) => 
+              {
                 if (err) throw err;
                 res.length > 0 && console.table(res);
                 inquireQ();
@@ -119,9 +122,10 @@ case "View Departments":
             });
           });
           break;
-         //===================== DELETE * DEPARTMENT =========================
+        //===================== DELETE * DEPARTMENT =========================
         case "Delete Department":
-          db.connection.query("SELECT * FROM  department", (err, res) => {
+          db.connection.query("SELECT * FROM  department", (err, res) => 
+          {
             if (err) throw err;
             res.length > 0 && console.table(res);
             ask
@@ -136,11 +140,14 @@ case "View Departments":
                   [answer.deleteDept],
                   (err, res) => {
                     if (err) throw err;
-                    db.connection.query("SELECT * FROM department",  (err, res) => {
-                      if (err) throw err;
-                      res.length > 0 && console.table(res);
-                      inquireQ();
-                    });
+                    db.connection.query(
+                      "SELECT * FROM department",
+                      (err, res) => {
+                        if (err) throw err;
+                        res.length > 0 && console.table(res);
+                        inquireQ();
+                      }
+                    );
                   }
                 );
               });
@@ -149,20 +156,21 @@ case "View Departments":
         // ==========END  *DEPARTMENTS* =====================
 
         // =================* BEGIN ROLES CASE *=================
-         case "View Role":
-          db.connection.query("SELECT * FROM role", (err, res) => {
+        case "View Role":
+          db.connection.query("SELECT * FROM role", (err, res) => 
+          {
             if (err) throw err;
             res.length > 0 && console.table(res);
-           
-           
-                    if (err) throw err;
-                    res.length > 0 && console.table(res);
-                    inquireQ();
-                  });
-          break; 
-          // >================== ADD * ROLES * CASE ====================================        
+
+            if (err) throw err;
+            res.length > 0 && console.table(res);
+            inquireQ();
+          });
+          break;
+        // >================== ADD * ROLES * CASE ====================================
         case "Add Role":
-          ask.prompt(addRole).then((answer) => {
+          ask.prompt(addRole).then((answer) => 
+          {
             db.connection.query(
               "INSERT INTO role SET ?",
               {
@@ -173,7 +181,8 @@ case "View Departments":
               function (err) {
                 if (err) throw err;
                 console.log("Successfully added role!");
-                db.connection.query("SELECT * FROM role", (err, res) => {
+                db.connection.query("SELECT * FROM role", (err, res) => 
+                {
                   if (err) throw err;
                   res.length > 0 && console.table(res);
                   inquireQ();
@@ -182,9 +191,10 @@ case "View Departments":
             );
           });
           break;
-         // ================== DELETE * ROLES * CASE============================
+        // ================== DELETE * ROLES * CASE============================
         case "Delete Role":
-          db.connection.query("SELECT * FROM  role", (err, res) => {
+          db.connection.query("SELECT * FROM  role", (err, res) => 
+          {
             if (err) throw err;
             res.length > 0 && console.table(res);
             ask
@@ -195,13 +205,16 @@ case "View Departments":
                   name: "deleteRole",
                 },
               ])
-              .then((answer) => {
+              .then((answer) => 
+              {
                 db.connection.query(
                   "DELETE FROM role WHERE id=?",
                   [answer.deleteRole],
-                  (err, res) => {
+                  (err, res) => 
+                  {
                     if (err) throw err;
-                    db.connection.query("SELECT * FROM role", (err, res) => {
+                    db.connection.query("SELECT * FROM role", (err, res) => 
+                    {
                       if (err) throw err;
                       res.length > 0 && console.table(res);
                       inquireQ();
@@ -213,97 +226,81 @@ case "View Departments":
           break;
         // ====================UPDATE * ROLE * CASE =============================
         case "Update Employee Role":
-        db.connection.query("SELECT * FROM employee", (err, employee) => {
-          if (err) throw err;
-          db.connection.query("SELECT * FROM role", (err, role) => {
+          db.connection.query("SELECT * FROM employee", (err, employee) =>
+           {
             if (err) throw err;
-db.connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id", (err, res) => {
+            db.connection.query("SELECT * FROM role", (err, role) => 
+            {
               if (err) throw err;
-              console.table(res);
-              ask.prompt([
+              db.connection.query(
+                "SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id",
+                (err, res) => 
                 {
-                  type: "list",
-                  message: "Please select the employee you wish to update:",
-                  choices: employee.map(employee => ({ value: employee.id, name: employee.last_name })),
-                  name: "updateID"
-                },
-                {
-                  type: "list",
-                  message: "Please enter their new role id:",
-                  choices: role.map(role => ({ value: role.id, name: role.title })),
-                  name: "updateRoleID"
-                }
-              ]).then(answer => {
-                db.connection.query("UPDATE employee SET ? WHERE ?", [{
-                  role_id: answer.updateRoleID
-                },
-                {
-                  id: answer.updateID
-                }], (err, res) => {
                   if (err) throw err;
-                  console.log("Successfully updated!");
-                  inquireQ();
-                });
-              });
+                  console.table(res);
+                  ask
+                    .prompt([
+                      {
+                        type: "list",
+                        message:
+                          "Please select the employee you wish to update:",
+                        choices: employee.map((employee) => 
+                        ({
+                          value: employee.id,
+                          name: employee.last_name,
+                        })),
+                        name: "updateID",
+                      },
+                      {
+                        type: "list",
+                        message: "Please enter their new role id:",
+                        choices: role.map((role) => 
+                        ({
+                          value: role.id,
+                          name: role.title,
+                        })),
+                        name: "updateRoleID",
+                      },
+                    ])
+                    .then((answer) => 
+                    {
+                      db.connection.query(
+                        "UPDATE employee SET ? WHERE ?",
+                        [
+                          {
+                            role_id: answer.updateRoleID,
+                          },
+                          {
+                            id: answer.updateID,
+                          },
+                        ],
+                        (err, res) => 
+                        {
+                          if (err) throw err;
+                          console.log("Successfully updated!");
+                          inquireQ();
+                        }
+                      );
+                    });
+                }
+              );
             });
           });
-        });
           break;
-        // case "Updated Employee Roles":
-        //   db.connection.query("SELECT * FROM employees", (err, res) => {
-        //     if (err) throw err;
-        //     res.length > 0 && console.table(res);
-        //     ask
-        //       .prompt([
-        //         {
-        //           type: "input",
-        //           message: "Please enter the EMPLOYEE'S ID you wish to update:",
-        //           name: "updateID",
-        //           validate: (value) => {
-        //             if (validator.isInt(value)) {
-        //               return true;
-        //             }
-        //             return "Please enter valid EMPLOYEE ID NUMBER ";
-        //           },
-        //         },
-        //         {
-        //           type: "input",
-        //           message: "Please enter EMPLOYEE'S new ROLE ID:",
-        //           name: "updateRoleID",
-        //         },
-        //       ])
-        //       .then((answer) => {
-        //         connection.query(
-        //           "UPDATE employees SET ? WHERE =?",
-        //           [
-        //             {
-        //               role_id: answer.updateRoleID,
-        //             },
-        //             {
-        //               id: answer.updateID,
-        //             },
-        //           ],
-        //           (err, res) => {
-        //             if (err) throw err;
-        //             console.table(res);
-        //             console.log("Congrats on the Promotion");
-        //             inquireQ();
-        //           }
-        //         );
-        //       });
-        //   });
-        
 
         // // =================END * ROLES =====================
 
         // ==================BEGIN * EMPLOYEE * CASE =============
         case "View Employee":
-          db.connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id", (err, res) => {
-            if (err) throw err;
-            console.log(res);
-            res.length > 0 && console.table(res);
-            inquireQ();
-          });
+          db.connection.query(
+            "SELECT employee.id, employee.first_name, employee.last_name, role.title FROM employee LEFT JOIN role ON employee.role_id = role.id",
+            (err, res) => {
+              if (err) throw err;
+              console.log(res);
+              res.length > 0 && console.table(res);
+              inquireQ();
+            }
+          );
           break;
         // =============== * ADD * EMPLOYEE * CASE===================
         case "Add Employee":
@@ -343,17 +340,23 @@ db.connection.query("SELECT employee.id, employee.first_name, employee.last_name
                   name: "deleteEmployee",
                 },
               ])
-              .then((answer) => {
+              .then((answer) => 
+              {
                 db.connection.query(
                   "DELETE FROM employee WHERE id=?",
                   [answer.deleteEmployee],
-                  (err, res) => {
+                  (err, res) => 
+                  {
                     if (err) throw err;
-                    db.connection.query("SELECT * FROM employee", (err, res) => {
-                      if (err) throw err;
-                      res.length > 0 && console.table(res);
-                      inquireQ();
-                    });
+                    db.connection.query(
+                      "SELECT * FROM employee",
+                      (err, res) => 
+                      {
+                        if (err) throw err;
+                        res.length > 0 && console.table(res);
+                        inquireQ();
+                      }
+                    );
                   }
                 );
               });
@@ -363,7 +366,8 @@ db.connection.query("SELECT employee.id, employee.first_name, employee.last_name
 
         // ===================BEGIN * MANAGER * CASE =========================
         case "View Manager":
-          db.connection.query("SELECT * FROM manager", (err, res) => {
+          db.connection.query("SELECT * FROM manager", (err, res) =>
+           {
             if (err) throw err;
             console.log(res);
             res.length > 0 && console.table(res);
@@ -371,32 +375,39 @@ db.connection.query("SELECT employee.id, employee.first_name, employee.last_name
           });
         case "Update Employee Managers":
           break;
-//  ==================
+        //  ==================
         case "View Employee by Manager":
-db.connection.query("SELECT employee.first_name, employee.last_name,  employee.id  FROM employee ", 
-(err, res) => {
-          if (err) throw err;
-          res.length > 0 && console.table(res);      
-                ask.prompt([
+          db.connection.query(
+            "SELECT employee.first_name, employee.last_name,  employee.id  FROM employee ",
+            (err, res) =>
+            {
+              if (err) throw err;
+              res.length > 0 && console.table(res);
+              ask
+                .prompt([
                   {
-                  type:"input",
-                  message: "Enter the MANAGER ID you wish to view",
-                  name: "viewByManager",
-                  }
+                    type: "input",
+                    message: "Enter the MANAGER ID you wish to view",
+                    name: "viewByManager",
+                  },
                 ])
-                .then((answer) =>{
-db.connection.query("SELECT employee.first_name, employee.last_name  FROM employee  WHERE manager_id=?",
-                   [answer.viewByManager],
-                   (err,res) => {
+                .then((answer) => 
+                {
+                  db.connection.query(
+                    "SELECT employee.first_name, employee.last_name  FROM employee  WHERE manager_id=?",
+                    [answer.viewByManager],
+                    (err, res) => 
+                    {
                       if (err) throw err;
-                        res.length > 0 && console.table(res);
-                        inquireQ();
-                     }
+                      res.length > 0 && console.table(res);
+                      inquireQ();
+                    }
                   );
                 });
-               });
-     
-        break;
+            }
+          );
+
+          break;
 
         // ========= END * ALL * CASES  (FINISH) ====================
         case "Finish":

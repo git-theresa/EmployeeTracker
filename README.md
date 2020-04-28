@@ -19,24 +19,25 @@
   * Contact
   
   ##  **Description**
-  Employee Tracker is an application that allows a user to create an office database
+  Employee Tracker is an application that allows a user to create an office database with MySQL and Node.js
  
 
- <img   src="assets/" alt="screenshot" />
+ <img   src="assets/empApp.png" alt="screenshot" />
  
 
   ## **Installation**
   JSON Package Included
  
   ## **Technology Stack**
-JavaScript, jQuery, Node.Js, Node Express, MySQL
+JavaScript, Node.Js, MySQL
 
   ##  **Usage**
+  
 
   
   
 
-<img   src="assets/" alt="screenshot" />
+<img   src="assets/employee.gif" alt="usage gif" />
 
 
 
